@@ -1,0 +1,6 @@
+*.pyc
+__pycache__/
+test.py
+bk.app.py
+useless/
+venv/

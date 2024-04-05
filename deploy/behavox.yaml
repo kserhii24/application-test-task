@@ -1,0 +1,90 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: behavox-deployment
+  namespace: default
+  labels:
+    app: behavox
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: behavox
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: behavox
+    spec:
+      containers:
+      - name: behavox-app
+        image: sergey2410/behavox:latest
+        securityContext:
+          readOnlyRootFilesystem: true
+        resources:
+          requests: 
+            memory: "256Mi"
+            cpu: "250m"
+          limits: 
+            memory: "280Mi"
+            cpu: "270m"
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: behavox
+  namespace: default
+spec:
+  selector:
+    app: behavox
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 5000
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: behavox-pdb
+  namespace: default
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: behavox
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: behavox-ingress
+  namespace: default
+spec:
+  rules:
+    - http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: behavox
+                port:
+                  number: 80
+---
