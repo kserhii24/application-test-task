@@ -1,4 +1,4 @@
-# Serhii Kushnir. Welcome to the repository with the Behavox interview test task
+# Serhii Kushnir. Welcome to the repository with the application interview test task
 
 This repository solves a task provided during the interview process 
 

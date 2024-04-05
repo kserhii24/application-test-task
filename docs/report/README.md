@@ -15,12 +15,12 @@
 
 ### Deploy
 #### For application deployment I decided to use a minikube with YAML file for deployment: 
-- I used our custom endpoints for [readinessProbe](../../deploy/behavox.yaml#L37) and [livenessProbe](../../deploy/behavox.yaml#L43)
-- Set a default amount of [replicas in the deployment to 3](../../deploy/behavox.yaml#L9)
-- Ensured a load balancing by creatig a [service](../../deploy/behavox.yaml#L51) and point it to our deployment
-- Ensured a zero-downtime update by configuring a [RollingUpdate](../../deploy/behavox.yaml#L14) deployment strategy with 0 maxUnavailable replicas during deployment process. Also created a [PDB](../../deploy/behavox.yaml#L64) to make sure, that we will not have any downtime in case of rebalancing worker nodes in the cluster. 
-- Created an [Ingress](../../deploy/behavox.yaml#L74) to have normal access through port 80 to our application
-- I used a newly built [image](../../deploy/behavox.yaml#L25) for our deployment. It's available on [DockerHub](https://hub.docker.com/layers/sergey2410/behavox/latest/images/sha256-e889668a4886492ebdfe7ade113a9c7098862933ad09f6cac08dcc998ab9cf4d?context=repo)
+- I used our custom endpoints for [readinessProbe](../../deploy/application.yaml#L37) and [livenessProbe](../../deploy/application.yaml#L43)
+- Set a default amount of [replicas in the deployment to 3](../../deploy/application.yaml#L9)
+- Ensured a load balancing by creatig a [service](../../deploy/application.yaml#L51) and point it to our deployment
+- Ensured a zero-downtime update by configuring a [RollingUpdate](../../deploy/application.yaml#L14) deployment strategy with 0 maxUnavailable replicas during deployment process. Also created a [PDB](../../deploy/application.yaml#L64) to make sure, that we will not have any downtime in case of rebalancing worker nodes in the cluster. 
+- Created an [Ingress](../../deploy/application.yaml#L74) to have normal access through port 80 to our application
+- I used a newly built [image](../../deploy/application.yaml#L25) for our deployment. It's available on [DockerHub](https://hub.docker.com/layers/sergey2410/application/latest/images/sha256-e889668a4886492ebdfe7ade113a9c7098862933ad09f6cac08dcc998ab9cf4d?context=repo)
 
 ### Script
 - I created a [script](../../scripts/send_requsts.py) to send 100 requests using Python3 aiohttp to our application

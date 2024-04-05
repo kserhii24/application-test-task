@@ -10,7 +10,7 @@
   ```
 
 ## Deployment
-The [deployment file](../../deploy/behavox.yaml) is consist of 4 kubernetes entities: 
+The [deployment file](../../deploy/application.yaml) is consist of 4 kubernetes entities: 
 - Deployment
 - Service
 - Pod Disruption Budget
@@ -19,7 +19,7 @@ The [deployment file](../../deploy/behavox.yaml) is consist of 4 kubernetes enti
 ## Deploy command: 
 **Asuming, that you are in a root folder of the repository:**
 ```
-kubectl apply -f deploy/behavox.yaml
+kubectl apply -f deploy/application.yaml
 ```
 
 ## To have an access to the ingress we need to run: 

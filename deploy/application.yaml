@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: behavox-deployment
+  name: application-deployment
   namespace: default
   labels:
-    app: behavox
+    app: application
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: behavox
+      app: application
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -18,11 +18,11 @@ spec:
   template:
     metadata:
       labels:
-        app: behavox
+        app: application
     spec:
       containers:
-      - name: behavox-app
-        image: sergey2410/behavox:latest
+      - name: application-app
+        image: sergey2410/application:latest
         securityContext:
           readOnlyRootFilesystem: true
         resources:
@@ -50,11 +50,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: behavox
+  name: application
   namespace: default
 spec:
   selector:
-    app: behavox
+    app: application
   ports:
   - protocol: TCP
     port: 80
@@ -63,18 +63,18 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: behavox-pdb
+  name: application-pdb
   namespace: default
 spec:
   minAvailable: 2
   selector:
     matchLabels:
-      app: behavox
+      app: application
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: behavox-ingress
+  name: application-ingress
   namespace: default
 spec:
   rules:
@@ -84,7 +84,7 @@ spec:
             path: /
             backend:
               service:
-                name: behavox
+                name: application
                 port:
                   number: 80
 ---
