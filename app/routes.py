@@ -28,5 +28,5 @@ async def ready():
 @record_metrics(endpoint='/payload')
 async def payload():
     random_number = random.randint(0, 30)
-    fib_result = generate_fibonacci(random_number)
-    return jsonify({'fibonacci': fib_result})
+    fibonacci_result = generate_fibonacci(random_number)
+    return jsonify({'fibonacci': fibonacci_result})
