@@ -28,7 +28,7 @@ python3 run.py
 
 ## To run the application in a production environment: 
 There several steps are required to build and deploy the application for production needs.  
-**Please follow to the [Documentation Build](docs/build/README.md) and [Documentation Build](docs/deploy/README.md)**
+**Please refer to the [Documentation Build](docs/build/README.md) and [Documentation Deploy](docs/deploy/README.md)**
 - **Run command:**
 ```
 hypercorn --bind 0.0.0.0:5000 app:app
