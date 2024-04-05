@@ -34,3 +34,14 @@
 ### There are a lot of ways to improve our application: 
 - Add HPA for our application to scale it. As far as we have a stateless application, it would not be a complicated task
 - Probably it could be a good idea to add a cache, for caching results to optimize our application
+
+### Logging and monitoring proposals:
+#### Monitoring: 
+- As I mentioned before, I already used a prometheus client in our application. So, it's 100% suitable for Prometheus-like applications to scrape application metrics. 
+- To monitor hardware metrics, I would use kube-state-metrics and also collect it with prometheus-like tool. 
+- To display metrics, I would use grafana
+- Based on all proposed bullet point's I would say, that it's enough information to track application performance: CPU and RAM consumption, error rates and responce times. 
+- Also, I added a hostname to our metrics to have the possibility to track from which pod we got metrics
+
+#### Logging:
+- All of our hypercorn logs are going to the [stdout of the container](../../Dockerfile#L30). I think the best and simplest way to collect all of the logs - use Loki and, for example, promtail/fluent bit. We could deploy log collectors like sidecar in out pod or like a daemonset (in case we don't use serverless resources), collect logs and send them to Loki. After that, we could display it in Grafana. 
